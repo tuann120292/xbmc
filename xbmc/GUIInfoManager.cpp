@@ -1078,6 +1078,8 @@ int CGUIInfoManager::TranslateSingleString(const CStdString &strCondition)
           return AddMultiInfo(GUIInfo(SKIN_BOOL, g_settings.TranslateSkinBool(prop.param(0))));
         else if (prop.name == "hastheme")
           return AddMultiInfo(GUIInfo(SKIN_HAS_THEME, ConditionalStringParameter(prop.param(0))));
+        else if (prop.name == "hasfonttheme")
+          return AddMultiInfo(GUIInfo(SKIN_HAS_FONT_THEME, ConditionalStringParameter(prop.param(0))));
       }
     }
     else if (cat.name == "window")
@@ -2529,6 +2531,13 @@ bool CGUIInfoManager::GetMultiInfoBool(const GUIInfo &info, int contextWindow, c
           theme.ToLower();
           URIUtils::RemoveExtension(theme);
           bReturn = theme.Equals(m_stringParameters[info.GetData1()]);
+        }
+        break;
+      case SKIN_HAS_FONT_THEME:
+        {
+          CStdString fonttheme = g_guiSettings.GetString("lookandfeel.font");
+          fonttheme.ToLower();
+          bReturn = fonttheme.Equals(m_stringParameters[info.GetData1()]);
         }
         break;
       case STRING_IS_EMPTY:
