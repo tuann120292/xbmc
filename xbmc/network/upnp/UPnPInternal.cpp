@@ -801,6 +801,10 @@ CFileItemPtr BuildObject(PLT_MediaObject* entry)
       pItem->SetProperty("numepisodes", episodes);
       pItem->SetProperty("watchedepisodes", played);
       pItem->SetProperty("unwatchedepisodes", episodes - played);
+      if (episodes > 0)
+        pItem->SetProperty("percentwatched", static_cast<int>(static_cast<double>(played) / static_cast<double>(episodes)*100));
+      else
+        pItem->SetProperty("percentwatched", 0);
       watched = (episodes && played == episodes);
     }
     else if (type == "episode" || type == "movie")
