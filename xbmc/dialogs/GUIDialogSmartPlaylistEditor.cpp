@@ -329,15 +329,17 @@ void CGUIDialogSmartPlaylistEditor::UpdateButtons()
   CGUIMessage msgReset(GUI_MSG_LABEL_RESET, GetID(), CONTROL_RULE_LIST);
   OnMessage(msgReset);
   m_ruleLabels->Clear();
-  for (unsigned int i = 0; i < m_playlist.m_ruleCombination.m_rules.size(); i++)
-  {
-    CFileItemPtr item(new CFileItem("", false));
-    if (m_playlist.m_ruleCombination.m_rules[i]->m_field == FieldNone)
-      item->SetLabel(g_localizeStrings.Get(21423));
-    else
-      item->SetLabel(std::static_pointer_cast<CSmartPlaylistRule>(m_playlist.m_ruleCombination.m_rules[i])->GetLocalizedRule());
-    m_ruleLabels->Add(item);
+  if (m_playlist.m_ruleCombination.m_rules[0]->m_field != FieldNone){
+      for (unsigned int i = 0; i < m_playlist.m_ruleCombination.m_rules.size(); i++)
+      {
+          CFileItemPtr item(new CFileItem("", false));
+          item->SetLabel(std::static_pointer_cast<CSmartPlaylistRule>(m_playlist.m_ruleCombination.m_rules[i])->GetLocalizedRule());
+          m_ruleLabels->Add(item);
+      }
   }
+  CFileItemPtr item(new CFileItem("", false));
+  item->SetLabel(g_localizeStrings.Get(21423));
+  m_ruleLabels->Add(item);
   CGUIMessage msg(GUI_MSG_LABEL_BIND, GetID(), CONTROL_RULE_LIST, 0, 0, m_ruleLabels);
   OnMessage(msg);
   SendMessage(GUI_MSG_ITEM_SELECT, GetID(), CONTROL_RULE_LIST, currentItem);
