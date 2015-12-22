@@ -98,7 +98,7 @@ void CGUIViewControl::SetCurrentView(int viewMode, bool bRefresh /* = false */)
     newView = GetView(VIEW_TYPE_NONE, 0);
 
   if (newView < 0)
-    CLog::Log(LOGDEBUG,"No new view found");
+    // CLog::Log(LOGDEBUG,"No new view found");
     return;
 
   m_currentView = newView;
@@ -152,7 +152,8 @@ void CGUIViewControl::UpdateContents(const CGUIControl *control, int currentItem
 
 void CGUIViewControl::UpdateView()
 {
-  CLog::Log(LOGDEBUG,"UpdateView: %i", m_currentView);
+  CLog::Log(LOGDEBUG,"UpdateView: m_currentView %i", m_currentView);
+  CLog::Log(LOGDEBUG,"UpdateView: m_visibleViews %i", (int)m_visibleViews.size());
   if (m_currentView < 0 || m_currentView >= (int)m_visibleViews.size())
     CLog::Log(LOGDEBUG,"UpdateView: no valid view");
     return; // no valid current view!
