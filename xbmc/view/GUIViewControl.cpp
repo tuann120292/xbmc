@@ -27,6 +27,7 @@
 #include "guilib/GUIWindowManager.h"
 #include "guilib/IGUIContainer.h"
 #include "guilib/LocalizeStrings.h"
+#include "utils/log.h"
 #include "guilib/WindowIDs.h"
 #include "utils/StringUtils.h"
 #include "utils/URIUtils.h"
@@ -74,6 +75,11 @@ void CGUIViewControl::SetCurrentView(int viewMode, bool bRefresh /* = false */)
 
   UpdateViewVisibility();
 
+  for (int i = 0; i < (int)m_visibleViews.size(); i++)
+  {
+    CLog::Log(LOGDEBUG,"available: %i", m_visibleViews[i]->GetID());
+  }
+
   // viewMode is of the form TYPE << 16 | ID
   VIEW_TYPE type = (VIEW_TYPE)(viewMode >> 16);
   int id = viewMode & 0xffff;
@@ -92,6 +98,7 @@ void CGUIViewControl::SetCurrentView(int viewMode, bool bRefresh /* = false */)
     newView = GetView(VIEW_TYPE_NONE, 0);
 
   if (newView < 0)
+    CLog::Log(LOGDEBUG,"No new view found");
     return;
 
   m_currentView = newView;
@@ -102,10 +109,8 @@ void CGUIViewControl::SetCurrentView(int viewMode, bool bRefresh /* = false */)
     (*view)->SetVisible(false);
   pNewView->SetVisible(true);
 
-  if (!bRefresh && pNewView == previousView)
-    return; // no need to actually update anything (other than visibility above)
-
-//  CLog::Log(LOGDEBUG,"SetCurrentView: Oldview: %i, Newview :%i", m_currentView, viewMode);
+  CLog::Log(LOGDEBUG,"SetCurrentView: Oldview: %i", viewMode);
+  CLog::Log(LOGDEBUG,"SetCurrentView: Newview :%i", m_currentView);
 
   bool hasFocus(false);
   int item = -1;
@@ -147,8 +152,9 @@ void CGUIViewControl::UpdateContents(const CGUIControl *control, int currentItem
 
 void CGUIViewControl::UpdateView()
 {
-//  CLog::Log(LOGDEBUG,"UpdateView: %i", m_currentView);
+  CLog::Log(LOGDEBUG,"UpdateView: %i", m_currentView);
   if (m_currentView < 0 || m_currentView >= (int)m_visibleViews.size())
+    CLog::Log(LOGDEBUG,"UpdateView: no valid view");
     return; // no valid current view!
 
   CGUIControl *pControl = m_visibleViews[m_currentView];
