@@ -75,6 +75,7 @@ void CGUIViewControl::SetCurrentView(int viewMode, bool bRefresh /* = false */)
 
   UpdateViewVisibility();
 
+  CLog::Log(LOGDEBUG,"SetCurrentView: Available views: %i", (int)m_visibleViews.size());
   for (int i = 0; i < (int)m_visibleViews.size(); i++)
   {
     CLog::Log(LOGDEBUG,"available: %i", m_visibleViews[i]->GetID());
@@ -83,6 +84,7 @@ void CGUIViewControl::SetCurrentView(int viewMode, bool bRefresh /* = false */)
   // viewMode is of the form TYPE << 16 | ID
   VIEW_TYPE type = (VIEW_TYPE)(viewMode >> 16);
   int id = viewMode & 0xffff;
+  CLog::Log(LOGDEBUG,"SetCurrentView: Oldview: %i", id);
 
   // first find a view that matches this view, if possible...
   int newView = GetView(type, id);
@@ -96,9 +98,8 @@ void CGUIViewControl::SetCurrentView(int viewMode, bool bRefresh /* = false */)
     newView = GetView(VIEW_TYPE_LIST, 0);
   if (newView < 0) // try anything!
     newView = GetView(VIEW_TYPE_NONE, 0);
-
+  CLog::Log(LOGDEBUG,"SetCurrentView: newView: %i", newView);
   if (newView < 0)
-    // CLog::Log(LOGDEBUG,"No new view found");
     return;
 
   m_currentView = newView;
@@ -109,8 +110,6 @@ void CGUIViewControl::SetCurrentView(int viewMode, bool bRefresh /* = false */)
     (*view)->SetVisible(false);
   pNewView->SetVisible(true);
 
-  CLog::Log(LOGDEBUG,"SetCurrentView: Oldview: %i", viewMode);
-  CLog::Log(LOGDEBUG,"SetCurrentView: Newview :%i", m_currentView);
 
   bool hasFocus(false);
   int item = -1;

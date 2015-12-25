@@ -823,7 +823,7 @@ bool CGUIMediaWindow::Update(const std::string &strDirectory, bool updateFilterP
 
   // Filter and group the items if necessary
   OnFilterItems(GetProperty("filter").asString());
-
+  CLog::Log(LOGDEBUG,"CGUIMediaWindow::Update: UpdateButtons()");
   UpdateButtons();
 
   strSelectedItem = m_history.GetSelectedItem(m_vecItems->GetPath());
@@ -1377,6 +1377,7 @@ void CGUIMediaWindow::UpdateFileList()
     strSelected = m_vecItems->Get(nItem)->GetPath();
 
   FormatAndSort(*m_vecItems);
+  CLog::Log(LOGDEBUG,"CGUIMediaWindow::UpdateFileList: UpdateButtons()");
   UpdateButtons();
 
   m_viewControl.SetItems(*m_vecItems);
@@ -1801,6 +1802,7 @@ void CGUIMediaWindow::OnFilterItems(const std::string &filter)
   // and update our view control + buttons
   m_viewControl.SetItems(*m_vecItems);
   m_viewControl.SetSelectedItem(currentItemPath);
+  CLog::Log(LOGDEBUG,"CGUIMediaWindow::OnFilterItems: UpdateButtons()");
   UpdateButtons();
 }
 
