@@ -60,7 +60,7 @@ bool CRecentlyAddedJob::UpdateVideo()
 
   if (videodatabase.GetRecentlyAddedMoviesNav("videodb://recentlyaddedmovies/", items, NUM_ITEMS))
   {  
-    for (; i < items.Size(); ++i)
+    for (; i < (int)items.Size(); ++i)
     {
       auto item = items.Get(i);
       std::string   value = StringUtils::Format("%i", i + 1);
@@ -100,7 +100,7 @@ bool CRecentlyAddedJob::UpdateVideo()
  
   if (videodatabase.GetRecentlyAddedEpisodesNav("videodb://recentlyaddedepisodes/", TVShowItems, NUM_ITEMS))
   {
-    for (; i < TVShowItems.Size(); ++i)
+    for (; i < (int)TVShowItems.Size(); ++i)
     {
       auto item          = TVShowItems.Get(i);
       int          EpisodeSeason = item->GetVideoInfoTag()->m_iSeason;
@@ -263,7 +263,7 @@ bool CRecentlyAddedJob::UpdateMusic()
   
   if (musicdatabase.GetRecentlyAddedAlbums(albums, NUM_ITEMS))
   { 
-    for (; i < albums.size(); ++i)
+    for (; i < (int)albums.size(); ++i)
     {
       auto& album=albums[i];
       std::string value = StringUtils::Format("%i", i + 1);
