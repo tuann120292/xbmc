@@ -14106,7 +14106,7 @@ msgctxt "#29900"
 msgid "Radiotext Plus info"
 msgstr ""
 
-#. Music band name which make the song (if present)
+#. Music band name which make the song
 #: addons/skin.confluence/720p/DialogPVRRadioRDSInfo.xml
 msgctxt "#29901"
 msgid "Band"
@@ -14118,33 +14118,33 @@ msgctxt "#29902"
 msgid "Style"
 msgstr ""
 
-#. Concert composer of the music (if present)
+#. Concert composer of the music
 #: addons/skin.confluence/720p/DialogPVRRadioRDSInfo.xml
 #: addons/skin.confluence/720p/DialogSongInfo.xml
 msgctxt "#29903"
 msgid "Composer"
 msgstr ""
 
-#. Artits which sing the music (if present)
+#. Artits which sing the music
 #: addons/skin.confluence/720p/DialogPVRRadioRDSInfo.xml
 msgctxt "#29904"
 msgid "Artist"
 msgstr ""
 
-#. Conductor of the classic music (if present)
+#. Conductor of the classic music
 #: addons/skin.confluence/720p/DialogPVRRadioRDSInfo.xml
 #: addons/skin.confluence/720p/DialogSongInfo.xml
 msgctxt "#29905"
 msgid "Conductor"
 msgstr ""
 
-#. Moderator currently on radio (if present)
+#. Moderator currently on radio
 #: addons/skin.confluence/720p/DialogPVRRadioRDSInfo.xml
 msgctxt "#29906"
 msgid "Moderator"
 msgstr ""
 
-#. List of editoral staff (if present)
+#. List of editoral staff
 #: addons/skin.confluence/720p/DialogPVRRadioRDSInfo.xml
 msgctxt "#29907"
 msgid "Editorial Staff"
@@ -14156,85 +14156,85 @@ msgctxt "#29908"
 msgid "Program"
 msgstr ""
 
-#. Studio name (if present)
+#. Studio name
 #: addons/skin.confluence/720p/DialogPVRRadioRDSInfo.xml
 msgctxt "#29909"
 msgid "Studio"
 msgstr ""
 
-#. Phone number (if present)
+#. Phone number
 #: addons/skin.confluence/720p/DialogPVRRadioRDSInfo.xml
 msgctxt "#29910"
 msgid "Phone"
 msgstr ""
 
-#. EMail address (if present)
+#. EMail address
 #: addons/skin.confluence/720p/DialogPVRRadioRDSInfo.xml
 msgctxt "#29911"
 msgid "EMail"
 msgstr ""
 
-#. SMS message number (if present)
+#. SMS message number
 #: addons/skin.confluence/720p/DialogPVRRadioRDSInfo.xml
 msgctxt "#29912"
 msgid "SMS"
 msgstr ""
 
-#. Hotline phone (if present)
+#. Hotline phone
 #: addons/skin.confluence/720p/DialogPVRRadioRDSInfo.xml
 msgctxt "#29913"
 msgid "Hotline"
 msgstr ""
 
-#. Website address (if present)
+#. Website address
 #: addons/skin.confluence/720p/DialogPVRRadioRDSInfo.xml
 msgctxt "#29914"
 msgid "Website"
 msgstr ""
 
-#. General information news, in list selector (if present)
+#. General information news, in list selector
 #: addons/skin.confluence/720p/DialogPVRRadioRDSInfo.xml
 msgctxt "#29915"
 msgid "Info"
 msgstr ""
 
-#. News, in list selector (if present)
+#. News, in list selector
 #: xbmc/pvr/dialogs/GUIDialogPVRRadioRDSInfo.cpp
 msgctxt "#29916"
 msgid "News"
 msgstr ""
 
-#. Local news, in list selector (if present)
+#. Local news, in list selector
 #: xbmc/pvr/dialogs/GUIDialogPVRRadioRDSInfo.cpp
 msgctxt "#29917"
 msgid "News local"
 msgstr ""
 
-#. Sport news, in list selector (if present)
+#. Sport news, in list selector
 #: xbmc/pvr/dialogs/GUIDialogPVRRadioRDSInfo.cpp
 msgctxt "#29918"
 msgid "Sport"
 msgstr ""
 
-#. Lottery information, in list selector (if present)
+#. Lottery information, in list selector
 #: xbmc/pvr/dialogs/GUIDialogPVRRadioRDSInfo.cpp
 msgctxt "#29919"
 msgid "Lottery"
 msgstr ""
 
-# Stock information, in list selector (if present)
+# Stock information, in list selector
 #: xbmc/pvr/dialogs/GUIDialogPVRRadioRDSInfo.cpp
 msgctxt "#29920"
 msgid "Stock"
 msgstr ""
 
-#. Other informations, in list selector (if present)
+#. Other informations, in list selector
 #: xbmc/pvr/dialogs/GUIDialogPVRRadioRDSInfo.cpp
 msgctxt "#29921"
 msgid "Other"
 msgstr ""
 
-#. Horoscope messages, in list selector (if present)
+#. Horoscope messages, in list selector
 #: xbmc/pvr/dialogs/GUIDialogPVRRadioRDSInfo.cpp
 msgctxt "#29922"
 msgid "Horoscope"
@@ -18260,49 +18260,49 @@ msgctxt "#38033"
 msgid "Role"
 msgstr ""
 
-#. Orchestra playing on the recording (if present)
+#. Orchestra playing on the recording
 #: addons/skin.confluence/720p/DialogSongInfo.xml
 msgctxt "#38034"
 msgid "Orchestra"
 msgstr ""
 
-#. Lyricist that wrote the lyrics of the song (if present)
+#. Lyricist that wrote the lyrics of the song
 #: addons/skin.confluence/720p/DialogSongInfo.xml
 msgctxt "#38035"
 msgid "Lyricist"
 msgstr ""
 
-#. Remixer of the song (if present)
+#. Remixer of the song
 #: addons/skin.confluence/720p/DialogSongInfo.xml
 msgctxt "#38036"
 msgid "Remixer"
 msgstr "" 
 
-#. Arranger of the song (if present)
+#. Arranger of the song
 #: addons/skin.confluence/720p/DialogSongInfo.xml
 msgctxt "#38037"
 msgid "Arranger"
 msgstr "" 
 
-#. Engineer of the song (if present)
+#. Engineer of the song
 #: addons/skin.confluence/720p/DialogSongInfo.xml
 msgctxt "#38038"
 msgid "Engineer"
 msgstr "" 
 
-#. Producer of the song (if present)
+#. Producer of the song
 #: addons/skin.confluence/720p/DialogSongInfo.xml
 msgctxt "#38039"
 msgid "Producer"
 msgstr "" 
 
-#. DJMixer of the song (if present)
+#. DJMixer of the song
 #: addons/skin.confluence/720p/DialogSongInfo.xml
 msgctxt "#38040"
 msgid "DJMixer"
 msgstr "" 
 
-#. Mixer of the song (if present)
+#. Mixer of the song
 #: addons/skin.confluence/720p/DialogSongInfo.xml
 msgctxt "#38041"
 msgid "Mixer"
