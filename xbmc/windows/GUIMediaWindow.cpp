@@ -124,17 +124,6 @@ void CGUIMediaWindow::LoadAdditionalTags(TiXmlElement *root)
         m_viewControl.AddView(control);
     }
   }
-  else
-  { // backward compatibility
-    std::vector<CGUIControl *> controls;
-    GetContainers(controls);
-    for (ciControls it = controls.begin(); it != controls.end(); it++)
-    {
-      CGUIControl *control = *it;
-      if (control->GetID() >= CONTROL_VIEW_START && control->GetID() <= CONTROL_VIEW_END)
-        m_viewControl.AddView(control);
-    }
-  }
   m_viewControl.SetViewControlID(CONTROL_BTNVIEWASICONS);
 }
 
