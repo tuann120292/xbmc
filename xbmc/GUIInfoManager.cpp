@@ -462,7 +462,8 @@ const infomap mediacontainer[] = {{ "hasfiles",         CONTAINER_HASFILES },
                                   { "hasthumb",         CONTAINER_HAS_THUMB },
                                   { "sortmethod",       CONTAINER_SORT_METHOD },
                                   { "sortorder",        CONTAINER_SORT_ORDER },
-                                  { "showplot",         CONTAINER_SHOWPLOT }};
+                                  { "showplot",         CONTAINER_SHOWPLOT },
+                                  { "showtitle",      CONTAINER_SHOWTITLE }};
 
 const infomap container_bools[] ={{ "onnext",           CONTAINER_MOVE_NEXT },
                                   { "onprevious",       CONTAINER_MOVE_PREVIOUS },
@@ -2029,10 +2030,14 @@ std::string CGUIInfoManager::GetLabel(int info, int contextWindow, std::string *
     return GetMultiInfoLabel(GUIInfo(info), contextWindow);
     break;
   case CONTAINER_SHOWPLOT:
+  case CONTAINER_SHOWTITLE:
     {
       CGUIWindow *window = GetWindowWithCondition(contextWindow, WINDOW_CONDITION_IS_MEDIA_WINDOW);
       if (window)
-        return ((CGUIMediaWindow *)window)->CurrentDirectory().GetProperty("showplot").asString();
+        if (info == CONTAINER_TOTALWATCHED)
+          return ((CGUIMediaWindow *)window)->CurrentDirectory().GetProperty("showplot").asString();
+        else
+          return ((CGUIMediaWindow *)window)->CurrentDirectory().GetProperty("showtitle").asString();
     }
     break;
   case CONTAINER_TOTALTIME:
