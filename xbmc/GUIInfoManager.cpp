@@ -2506,8 +2506,6 @@ bool CGUIInfoManager::GetBool(int condition1, int contextWindow, const CGUIListI
   {
     if (g_application.IsMusicScanning() || g_application.IsVideoScanning())
       bReturn = true;
-    else
-      bReturn = false;
   }
   else if (condition == LIBRARY_IS_SCANNING_VIDEO)
   {
@@ -2520,44 +2518,30 @@ bool CGUIInfoManager::GetBool(int condition1, int contextWindow, const CGUIListI
   else if (condition == SYSTEM_PLATFORM_LINUX)
 #if defined(TARGET_LINUX) || defined(TARGET_FREEBSD)
     bReturn = true;
-#else
-    bReturn = false;
 #endif
   else if (condition == SYSTEM_PLATFORM_WINDOWS)
 #ifdef TARGET_WINDOWS
     bReturn = true;
-#else
-    bReturn = false;
 #endif
   else if (condition == SYSTEM_PLATFORM_DARWIN)
 #ifdef TARGET_DARWIN
     bReturn = true;
-#else
-    bReturn = false;
 #endif
   else if (condition == SYSTEM_PLATFORM_DARWIN_OSX)
 #ifdef TARGET_DARWIN_OSX
     bReturn = true;
-#else
-    bReturn = false;
 #endif
   else if (condition == SYSTEM_PLATFORM_DARWIN_IOS)
 #ifdef TARGET_DARWIN_IOS
     bReturn = true;
-#else
-    bReturn = false;
 #endif
   else if (condition == SYSTEM_PLATFORM_ANDROID)
 #if defined(TARGET_ANDROID)
     bReturn = true;
-#else
-    bReturn = false;
 #endif
   else if (condition == SYSTEM_PLATFORM_LINUX_RASPBERRY_PI)
 #if defined(TARGET_RASPBERRY_PI)
     bReturn = true;
-#else
-    bReturn = false;
 #endif
   else if (condition == SYSTEM_MEDIA_DVD)
     bReturn = g_mediaManager.IsDiscInDrive();
@@ -2587,9 +2571,7 @@ bool CGUIInfoManager::GetBool(int condition1, int contextWindow, const CGUIListI
   else if (condition == PLAYER_IS_CHANNEL_PREVIEW_ACTIVE)
     bReturn = IsPlayerChannelPreviewActive();
   else if (condition >= MULTI_INFO_START && condition <= MULTI_INFO_END)
-  {
-    return GetMultiInfoBool(m_multiInfo[condition - MULTI_INFO_START], contextWindow, item);
-  }
+    bReturn = GetMultiInfoBool(m_multiInfo[condition - MULTI_INFO_START], contextWindow, item);
   else if (condition == SYSTEM_HASLOCKS)
     bReturn = CProfilesManager::GetInstance().GetMasterProfile().getLockMode() != LOCK_MODE_EVERYONE;
   else if (condition == SYSTEM_HAS_PVR)
@@ -2841,7 +2823,6 @@ bool CGUIInfoManager::GetBool(int condition1, int contextWindow, const CGUIListI
     case MUSICPLAYER_HASPREVIOUS:
       {
         // requires current playlist be PLAYLIST_MUSIC
-        bReturn = false;
         if (g_playlistPlayer.GetCurrentPlaylist() == PLAYLIST_MUSIC)
           bReturn = (g_playlistPlayer.GetCurrentSong() > 0); // not first song
       }
@@ -2849,14 +2830,12 @@ bool CGUIInfoManager::GetBool(int condition1, int contextWindow, const CGUIListI
     case MUSICPLAYER_HASNEXT:
       {
         // requires current playlist be PLAYLIST_MUSIC
-        bReturn = false;
         if (g_playlistPlayer.GetCurrentPlaylist() == PLAYLIST_MUSIC)
           bReturn = (g_playlistPlayer.GetCurrentSong() < (g_playlistPlayer.GetPlaylist(PLAYLIST_MUSIC).size() - 1)); // not last song
       }
       break;
     case MUSICPLAYER_PLAYLISTPLAYING:
       {
-        bReturn = false;
         if (g_application.m_pPlayer->IsPlayingAudio() && g_playlistPlayer.GetCurrentPlaylist() == PLAYLIST_MUSIC)
           bReturn = true;
       }
@@ -3108,8 +3087,6 @@ bool CGUIInfoManager::GetMultiInfoBool(const GUIInfo &info, int contextWindow, c
           int timeCompare = atoi(m_stringParameters[info.GetData2()].c_str());
           if (time > 0)
             bReturn = timeCompare >= time;
-          else
-            bReturn = false;
         }
         break;
       case SYSTEM_IDLE_TIME:
