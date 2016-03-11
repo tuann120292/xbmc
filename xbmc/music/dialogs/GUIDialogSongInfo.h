@@ -37,7 +37,8 @@ public:
   bool NeedsUpdate() const { return m_needsUpdate; };
 
   virtual bool HasListItems() const { return true; };
-  virtual CFileItemPtr GetCurrentListItem(int offset = 0);
+  virtual bool IsInfoDialog() const override { return true; };
+ virtual CFileItemPtr GetCurrentListItem(int offset = 0);
 protected:
   virtual void OnInitWindow();
   bool DownloadThumbnail(const std::string &thumbFile);
