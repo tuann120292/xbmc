@@ -36,6 +36,8 @@
 #include "platform/android/jni/JNIThreading.h"
 #endif
 #include "utils/fstrcmp.h"
+#include "utils/log.h"
+#include "utils/TimeUtils.h"
 #include "Util.h"
 #include "LangInfo.h"
 #include <locale>
@@ -51,6 +53,7 @@
 #include <memory.h>
 #include <algorithm>
 #include "utils/RegExp.h" // don't move or std functions end up in PCRE namespace
+
 
 #define FORMAT_BLOCK_SIZE 512 // # of bytes for initial allocation for printf
 
@@ -403,6 +406,16 @@ void StringUtils::ToCapitalize(std::wstring &str)
 
 bool StringUtils::EqualsNoCase(const std::string &str1, const std::string &str2)
 {
+  uint64_t start = CurrentHostCounter();
+  for (unsigned int i = 0; i < 1000; i++)
+  {
+    if (str1.size() != str2.size())
+      continue;
+    EqualsNoCase(str1.c_str(), str2.c_str());
+  }
+  uint64_t end = CurrentHostCounter();
+  uint64_t freq = CurrentHostFrequency();
+  CLog::Log(LOGNOTICE,"Stringcompare: %.4fms", 1000.f * (end - start) / freq);
   return EqualsNoCase(str1.c_str(), str2.c_str());
 }
 
