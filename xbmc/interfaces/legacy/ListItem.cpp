@@ -224,6 +224,15 @@ namespace XBMCAddon
       return value;
     }
 
+    String ListItem::getArt(const char* key)
+    {
+      LOCKGUI;
+      String lowerKey = key;
+      StringUtils::ToLower(lowerKey);
+      std::string value = item->GetArt(lowerKey);
+      return value;
+    }
+
     void ListItem::setPath(const String& path)
     {
       LOCKGUI;

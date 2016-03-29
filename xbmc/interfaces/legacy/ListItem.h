@@ -328,6 +328,20 @@ namespace XBMCAddon
       String getProperty(const char* key);
 
       /**
+       * getArt(key) -- Returns a listitem artwork entry as a string, similar to an infolabel.\n
+       * \n
+       * key            : string - artwork name.\n
+       * \n
+       * *Note, Key is NOT case sensitive.\n
+       *        You can use the above as keywords for arguments and skip certain optional arguments.\n
+       *        Once you use a keyword, all following arguments require the keyword.\n
+       * 
+       * example:
+       *   - Poster = self.list.getSelectedItem().getArt('poster')
+       */
+      String getArt(const char* key);
+
+      /**
        * setPath(path) -- Sets the listitem's path.\n
        * \n
        * path           : string or unicode - path, activated when item is clicked.\n
