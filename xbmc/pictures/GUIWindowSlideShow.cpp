@@ -955,6 +955,8 @@ bool CGUIWindowSlideShow::OnMessage(CGUIMessage& message)
 
   case GUI_MSG_START_SLIDESHOW:
     {
+      g_application.ResetScreenSaver();
+      g_application.WakeUpScreenSaverAndDPMS();
       std::string strFolder = message.GetStringParam();
       unsigned int iParams = message.GetParam1();
       std::string beginSlidePath = message.GetStringParam(1);
