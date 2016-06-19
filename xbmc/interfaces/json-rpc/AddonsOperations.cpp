@@ -40,6 +40,7 @@ JSONRPC_STATUS CAddonsOperations::GetAddons(const std::string &method, ITranspor
   TYPE addonType = TranslateType(parameterObject["type"].asString());
   CPluginSource::Content content = CPluginSource::Translate(parameterObject["content"].asString());
   CVariant enabled = parameterObject["enabled"];
+  CVariant includeInstallable = parameterObject["includeInstallable"];
 
   // ignore the "content" parameter if the type is specified but not a plugin or script
   if (addonType != ADDON_UNKNOWN && addonType != ADDON_PLUGIN && addonType != ADDON_SCRIPT)
@@ -78,8 +79,11 @@ JSONRPC_STATUS CAddonsOperations::GetAddons(const std::string &method, ITranspor
     VECADDONS typeAddons;
     if (*typeIt == ADDON_UNKNOWN)
     {
-      if (!enabled.isBoolean()) //All
+      if (!enabled.isBoolean()) { //All
         CAddonMgr::GetInstance().GetInstalledAddons(typeAddons);
+        if (includeInstallable.isBoolean() && includeInstallable.asBoolean())
+          CAddonMgr::GetInstance().GetInstallableAddons(typeAddons);
+        }
       else if (enabled.asBoolean()) //Enabled
         CAddonMgr::GetInstance().GetAddons(typeAddons);
       else
@@ -87,8 +91,11 @@ JSONRPC_STATUS CAddonsOperations::GetAddons(const std::string &method, ITranspor
     }
     else
     {
-      if (!enabled.isBoolean()) //All
+      if (!enabled.isBoolean()) { //All 
         CAddonMgr::GetInstance().GetInstalledAddons(typeAddons, *typeIt);
+        if (includeInstallable.isBoolean() && includeInstallable.asBoolean())
+          CAddonMgr::GetInstance().GetInstallableAddons(typeAddons, *typeIt);
+        }
       else if (enabled.asBoolean()) //Enabled
         CAddonMgr::GetInstance().GetAddons(typeAddons, *typeIt);
       else
@@ -261,11 +268,15 @@ void CAddonsOperations::FillDetails(AddonPtr addon, const CVariant& fields, CVar
   {
     std::string field = fields[index].asString();
     
-    // we need to manually retrieve the enabled state of every addon
+    // we need to manually retrieve the enabled / installed state of every addon
     // from the addon database because it can't be read from addon.xml
     if (field == "enabled")
     {
       object[field] = !CAddonMgr::GetInstance().IsAddonDisabled(addon->ID());
+    }
+    else if (field == "installed")
+    {
+      object[field] = CAddonMgr::GetInstance().IsAddonInstalled(addon->ID());
     }
     else if (field == "fanart" || field == "thumbnail")
     {
