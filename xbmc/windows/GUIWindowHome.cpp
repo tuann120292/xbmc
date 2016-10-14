@@ -48,19 +48,6 @@ CGUIWindowHome::~CGUIWindowHome(void)
   CAnnouncementManager::GetInstance().RemoveAnnouncer(this);
 }
 
-bool CGUIWindowHome::OnAction(const CAction &action)
-{
-  static unsigned int min_hold_time = 1000;
-  if (action.GetID() == ACTION_NAV_BACK &&
-      action.GetHoldTime() < min_hold_time &&
-      g_application.m_pPlayer->IsPlaying())
-  {
-    g_application.SwitchToFullScreen();
-    return true;
-  }
-  return CGUIWindow::OnAction(action);
-}
-
 void CGUIWindowHome::OnInitWindow()
 {  
   // for shared databases (ie mysql) always force an update on return to home
