@@ -31,10 +31,8 @@
 #include "WindowException.h"
 
 // These #defs are for WindowXML
-#define CONTROL_BTNVIEWASICONS  2
 #define CONTROL_BTNSORTBY       3
 #define CONTROL_BTNSORTASC      4
-#define CONTROL_LABELFILES      12
 
 #define A(x) interceptor->x
 

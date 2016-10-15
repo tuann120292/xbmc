@@ -37,6 +37,8 @@
 
 #include "GUIWindowPVRGuide.h"
 
+#define CONTROL_BTNVIEWASICONS     2
+
 using namespace PVR;
 using namespace EPG;
 

@@ -22,9 +22,6 @@
 #include "windows/GUIMediaWindow.h"
 #include "utils/Observer.h"
 
-#define CONTROL_BTNVIEWASICONS            2
-#define CONTROL_BTNSORTBY                 3
-#define CONTROL_BTNSORTASC                4
 #define CONTROL_BTNGROUPITEMS             5
 #define CONTROL_BTNSHOWHIDDEN             6
 #define CONTROL_BTNSHOWDELETED            7

@@ -74,11 +74,6 @@ using namespace VIDEO;
 using namespace ADDON;
 using namespace PVR;
 
-#define CONTROL_BTNVIEWASICONS     2
-#define CONTROL_BTNSORTBY          3
-#define CONTROL_BTNSORTASC         4
-#define CONTROL_LABELFILES        12
-
 #define CONTROL_PLAY_DVD           6
 
 #define PROPERTY_GROUP_BY           "group.by"

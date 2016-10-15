@@ -60,20 +60,14 @@ using namespace XFILE;
 using namespace VIDEODATABASEDIRECTORY;
 using namespace KODI::MESSAGING;
 
-#define CONTROL_BTNVIEWASICONS     2
-#define CONTROL_BTNSORTBY          3
-#define CONTROL_BTNSORTASC         4
 #define CONTROL_BTNSEARCH          8
 #define CONTROL_LABELFILES        12
 
-#define CONTROL_BTN_FILTER        19
 #define CONTROL_BTNSHOWMODE       10
 #define CONTROL_BTNSHOWALL        14
-#define CONTROL_UNLOCK            11
 
 #define CONTROL_FILTER            15
 #define CONTROL_BTNPARTYMODE      16
-#define CONTROL_LABELEMPTY        18
 
 #define CONTROL_UPDATE_LIBRARY    20
 

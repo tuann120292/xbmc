@@ -62,17 +62,11 @@ using namespace PLAYLIST;
 using namespace MUSICDATABASEDIRECTORY;
 using namespace KODI::MESSAGING;
 
-#define CONTROL_BTNVIEWASICONS     2
-#define CONTROL_BTNSORTBY          3
-#define CONTROL_BTNSORTASC         4
-#define CONTROL_BTNTYPE            5
 #define CONTROL_LABELFILES        12
 
 #define CONTROL_SEARCH             8
 #define CONTROL_FILTER            15
 #define CONTROL_BTNPARTYMODE      16
-#define CONTROL_BTNMANUALINFO     17
-#define CONTROL_BTN_FILTER        19
 
 #define CONTROL_UPDATE_LIBRARY    20
 

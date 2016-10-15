@@ -30,10 +30,6 @@
 #include "input/Key.h"
 #include "utils/StringUtils.h"
 
-#define CONTROL_BTNVIEWASICONS 2
-#define CONTROL_BTNSORTBY      3
-#define CONTROL_BTNSORTASC     4
-#define CONTROL_LABELFILES    12
 
 CGUIWindowPrograms::CGUIWindowPrograms(void)
     : CGUIMediaWindow(WINDOW_PROGRAMS, "MyPrograms.xml")
