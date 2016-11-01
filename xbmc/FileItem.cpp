@@ -1234,7 +1234,7 @@ void CFileItem::FillInDefaultIcon()
         // picture
         SetIconImage("DefaultPicture.png");
       }
-      else if ( IsPlayList() )
+      else if ( IsPlayList() || IsSmartPlayList())
       {
         SetIconImage("DefaultPlaylist.png");
       }
@@ -1250,7 +1250,7 @@ void CFileItem::FillInDefaultIcon()
     }
     else
     {
-      if ( IsPlayList() )
+      if ( IsPlayList() || IsSmartPlayList())
       {
         SetIconImage("DefaultPlaylist.png");
       }
