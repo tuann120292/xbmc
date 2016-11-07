@@ -413,6 +413,7 @@ bool CGUIBaseContainer::OnMessage(CGUIMessage& message)
         CFileItemList *items = (CFileItemList *)message.GetPointer();
         for (int i = 0; i < items->Size(); i++)
           m_items.push_back(items->Get(i));
+        m_content = items->GetContent();
         UpdateLayout(true); // true to refresh all items
         UpdateScrollByLetter();
         SelectItem(message.GetParam1());

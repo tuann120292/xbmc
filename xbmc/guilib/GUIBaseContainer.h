@@ -148,6 +148,7 @@ protected:
   int m_itemsPerPage;
 
   std::vector< CGUIListItemPtr > m_items;
+  std::string m_content = "";
   typedef std::vector<CGUIListItemPtr> ::iterator iItems;
   CGUIListItemPtr m_lastItem;
 
