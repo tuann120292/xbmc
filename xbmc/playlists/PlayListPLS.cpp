@@ -103,8 +103,7 @@ bool CPlayListPLS::Load(const std::string &strFile)
       file.Close();
       return size() > 0;
     }
-    strLine = szLine;
-    StringUtils::Trim(strLine);
+    strLine = StringUtils::Trim(szLine);
     if(StringUtils::EqualsNoCase(strLine, START_PLAYLIST_MARKER))
       break;
 

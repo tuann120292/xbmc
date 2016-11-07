@@ -1083,9 +1083,8 @@ bool CGUIDialogAddonSettings::GetCondition(const std::string &condition, const i
 
 bool CGUIDialogAddonSettings::TranslateSingleString(const std::string &strCondition, std::vector<std::string> &condVec)
 {
-  std::string strTest = strCondition;
+  std::string strTest = StringUtils::Trim(strCondition);
   StringUtils::ToLower(strTest);
-  StringUtils::Trim(strTest);
 
   size_t pos1 = strTest.find("(");
   size_t pos2 = strTest.find(",", pos1);

@@ -1076,8 +1076,7 @@ bool CDateTime::SetFromDBTime(const std::string &time)
 
 bool CDateTime::SetFromRFC1123DateTime(const std::string &dateTime)
 {
-  std::string date = dateTime;
-  StringUtils::Trim(date);
+  std::string date = StringUtils::Trim(dateTime);
 
   if (date.size() != 29)
     return false;

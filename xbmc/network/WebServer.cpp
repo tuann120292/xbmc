@@ -267,8 +267,7 @@ int CWebServer::HandlePartialRequest(struct MHD_Connection *connection, Connecti
               std::vector<std::string> cacheControls = StringUtils::Split(cacheControl, ",");
               for (std::vector<std::string>::const_iterator it = cacheControls.begin(); it != cacheControls.end(); ++it)
               {
-                std::string control = *it;
-                control = StringUtils::Trim(control);
+                std::string control = StringUtils::Trim(*it);
 
                 // handle no-cache
                 if (control.compare(HEADER_VALUE_NO_CACHE) == 0)

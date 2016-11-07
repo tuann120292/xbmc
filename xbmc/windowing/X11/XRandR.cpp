@@ -111,8 +111,7 @@ bool CXRandR::Query(bool force, int screennum, bool ignoreoff)
   for (TiXmlElement* output = pRootElement->FirstChildElement("output"); output; output = output->NextSiblingElement("output"))
   {
     XOutput xoutput;
-    xoutput.name = output->Attribute("name");
-    StringUtils::Trim(xoutput.name);
+    xoutput.name = output->StringUtils::Trim(Attribute("name"));
     xoutput.isConnected = (strcasecmp(output->Attribute("connected"), "true") == 0);
     xoutput.screen = screennum;
     xoutput.w = (output->Attribute("w") != NULL ? atoi(output->Attribute("w")) : 0);

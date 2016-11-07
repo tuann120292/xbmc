@@ -429,8 +429,7 @@ std::string CCueDocument::ExtractInfo(const std::string &line)
       return text;
     }
   }
-  std::string text = line;
-  StringUtils::Trim(text);
+  std::string text = StringUtils::Trim(line);
   g_charsetConverter.unknownToUTF8(text);
   return text;
 }

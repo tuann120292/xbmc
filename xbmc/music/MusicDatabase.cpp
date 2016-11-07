@@ -1117,8 +1117,7 @@ int CMusicDatabase::AddGenre(const std::string& strGenre1)
   std::string strSQL;
   try
   {
-    std::string strGenre = strGenre1;
-    StringUtils::Trim(strGenre);
+    std::string strGenre = StringUtils::Trim(strGenre1);
 
     if (strGenre.empty())
       strGenre=g_localizeStrings.Get(13205); // Unknown

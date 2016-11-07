@@ -60,8 +60,7 @@ CLinuxTimezone::CLinuxTimezone() : m_IsDST(0)
       while (getdelim(&line, &linelen, '\n', fp) > 0)
       {
          tokens.clear();
-         s = line;
-         StringUtils::Trim(s);
+         s = StringUtils::Trim(line);
 
          if (s.length() == 0)
             continue;

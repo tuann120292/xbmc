@@ -1397,8 +1397,7 @@ uint32_t CButtonTranslator::TranslateKeyboardButton(TiXmlElement *pButton)
     std::vector<std::string> modArray = StringUtils::Split(strMod, ",");
     for (std::vector<std::string>::const_iterator i = modArray.begin(); i != modArray.end(); ++i)
     {
-      std::string substr = *i;
-      StringUtils::Trim(substr);
+      std::string substr = StringUtils::Trim(*i);
 
       if (substr == "ctrl" || substr == "control")
         button_id |= CKey::MODIFIER_CTRL;

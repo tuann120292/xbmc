@@ -5227,8 +5227,7 @@ int CGUIInfoManager::TranslateSingleString(const std::string &strCondition, bool
    *  This is achieved by setting the bool pointed at by listItemDependent, either here or in a recursive call
    */
   // trim whitespaces
-  std::string strTest = strCondition;
-  StringUtils::Trim(strTest);
+  std::string strTest = StringUtils::Trim(strCondition);
 
   std::vector< Property> info;
   SplitInfoString(strTest, info);

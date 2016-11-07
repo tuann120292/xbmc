@@ -335,8 +335,8 @@ bool aml_mode_to_resolution(const char *mode, RESOLUTION_INFO *res)
   if(!mode)
     return false;
 
-  std::string fromMode = mode;
-  StringUtils::Trim(fromMode);
+  std::string fromMode = StringUtils::Trim(mode);
+
   // strips, for example, 720p* to 720p
   // the * indicate the 'native' mode of the display
   if (StringUtils::EndsWith(fromMode, "*"))

@@ -457,8 +457,7 @@ void CUtil::CleanString(const std::string& strFileName,
     }
   }
 
-  StringUtils::Trim(strTitleAndYear);
-  strTitle = strTitleAndYear;
+  strTitle = StringUtils::Trim(strTitleAndYear);
 
   // append year
   if (!strYear.empty())
