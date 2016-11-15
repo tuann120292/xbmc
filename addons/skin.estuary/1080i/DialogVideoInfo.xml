@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<defaultcontrol always="true">8</defaultcontrol>
-	<onload>SetProperty(infobackground,$INFO[ListItem.Art(fanart)],home)</onload>
+	<onload>SetProperty(infobackground,$ESCINFO[ListItem.Art(fanart)],home)</onload>
 	<onunload>ClearProperty(infobackground,home)</onunload>
 	<controls>
 		<control type="group">
@@ -450,7 +450,7 @@
 						<param name="icon" value="icons/infodialogs/info.png" />
 						<param name="label" value="$LOCALIZE[31034]" />
 						<param name="onclick_1" value="RunScript(script.extendedinfo,info=openinfodialog)" />
-						<param name="visible" value="System.hasAddon(script.extendedinfo)" />
+						<param name="visible" value="System.hasAddon(script.extendedinfo) + [Stringcompare(ListItem.DbType,movie) | Stringcompare(ListItem.DbType,tvshow) | Stringcompare(ListItem.DbType,season) | Stringcompare(ListItem.DbType,episode)]" />
 					</include>
 					<include content="InfoDialogButton">
 						<param name="id" value="102" />
