@@ -23,7 +23,6 @@
 #include "addons/AddonManager.h"
 #include "utils/log.h"
 #include "LocalizeStrings.h"
-#include "GUIColorManager.h"
 #include "GUIListItem.h"
 #include "utils/StringUtils.h"
 #include "addons/Skin.h"
@@ -65,10 +64,16 @@ CGUIInfoColor::CGUIInfoColor(uint32_t color)
   m_info = 0;
 }
 
+CGUIInfoColor::CGUIInfoColor(GUIResourceProviderPtr colorProvider, color_t color)
+: m_info(0), m_color(color), m_colorProvider(colorProvider)
+{
+}
+
 CGUIInfoColor &CGUIInfoColor::operator=(color_t color)
 {
   m_color = color;
   m_info = 0;
+  m_colorProvider.reset();
   return *this;
 }
 
@@ -76,6 +81,7 @@ CGUIInfoColor &CGUIInfoColor::operator=(const CGUIInfoColor &color)
 {
   m_color = color.m_color;
   m_info = color.m_info;
+  m_colorProvider = color.m_colorProvider;
   return *this;
 }
 
@@ -86,7 +92,7 @@ bool CGUIInfoColor::Update()
 
   // Expand the infolabel, and then convert it to a color
   std::string infoLabel(g_infoManager.GetLabel(m_info));
-  color_t color = !infoLabel.empty() ? g_colorManager.GetColor(infoLabel.c_str()) : 0;
+  color_t color = !infoLabel.empty() ? TranslateColor(infoLabel) : 0;
   if (m_color != color)
   {
     m_color = color;
@@ -94,6 +100,16 @@ bool CGUIInfoColor::Update()
   }
   else
     return false;
+}
+
+color_t CGUIInfoColor::TranslateColor(const std::string &color) const
+{
+  if (m_colorProvider)
+    return m_colorProvider->GetColor(color);
+  // try translating directly
+  color_t value = 0;
+  sscanf(color.c_str(), "%x", &value);
+  return value;
 }
 
 void CGUIInfoColor::Parse(const std::string &label, int context)
@@ -117,7 +133,7 @@ void CGUIInfoColor::Parse(const std::string &label, int context)
 
   m_info = g_infoManager.TranslateString(label2);
   if (!m_info)
-    m_color = g_colorManager.GetColor(label);
+    m_color = TranslateColor(label);
 }
 
 CGUIInfoLabel::CGUIInfoLabel() : m_dirty(false)

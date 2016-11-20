@@ -1,15 +1,7 @@
-/*!
-\file GUIColorManager.h
-\brief
-*/
-
-#ifndef GUILIB_COLORMANAGER_H
-#define GUILIB_COLORMANAGER_H
-
 #pragma once
 
 /*
- *      Copyright (C) 2005-2013 Team XBMC
+ *      Copyright (C) 2014 Team XBMC
  *      http://xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -28,42 +20,30 @@
  *
  */
 
-/*!
- \ingroup textures
- \brief
- */
-
+#include <memory>
 #include <stdint.h>
-#include <map>
-#include <string>
 
-class CXBMCTinyXML;
-
+class CGUIFont;
 typedef uint32_t color_t;
 
-class CGUIColorManager
+/*! \brief a resource container class for resolving UI resources
+ */
+class IGUIResourceProvider
 {
 public:
-  CGUIColorManager(void);
-  virtual ~CGUIColorManager(void);
+  virtual ~IGUIResourceProvider() {};
 
-  void Load(const std::string &colorFile);
+  /*! \brief Get a font from the resource provider.
+   \param the name of the font to obtain.
+   \return a pointer to the font object, else NULL if the font is unavailable.
+   */
+  virtual CGUIFont *GetFont(const std::string &fontName) const=0;
 
-  color_t GetColor(const std::string &color) const;
-
-  void Clear();
-
-protected:
-  bool LoadXML(CXBMCTinyXML &xmlDoc);
-
-  std::map<std::string, color_t> m_colors;
-  typedef std::map<std::string, color_t>::iterator iColor;
-  typedef std::map<std::string, color_t>::const_iterator icColor;
+  /*! \brief Get a color from the resource provider.
+   \param the name of the color to obtain.
+   \return the color, or white (0xffffffff) if unavailable.
+   */
+  virtual color_t GetColor(const std::string &fontName) const=0;
 };
 
-/*!
- \ingroup textures
- \brief
- */
-extern CGUIColorManager g_colorManager;
-#endif
+typedef std::shared_ptr<IGUIResourceProvider> GUIResourceProviderPtr;

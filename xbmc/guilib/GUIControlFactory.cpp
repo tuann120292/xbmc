@@ -56,11 +56,10 @@
 #include "addons/Skin.h"
 #include "utils/CharsetConverter.h"
 #include "utils/XMLUtils.h"
-#include "GUIFontManager.h"
-#include "GUIColorManager.h"
 #include "utils/RssManager.h"
 #include "utils/StringUtils.h"
 #include "GUIAction.h"
+#include "IResourceProvider.h"
 #include "games/controllers/guicontrols/GUIGameController.h"
 #include "Util.h"
 
@@ -122,7 +121,7 @@ std::string CGUIControlFactory::TranslateControlType(CGUIControl::GUICONTROLTYPE
   return "";
 }
 
-CGUIControlFactory::CGUIControlFactory(void)
+CGUIControlFactory::CGUIControlFactory(GUIResourceProviderPtr provider) : m_provider(provider)
 {}
 
 CGUIControlFactory::~CGUIControlFactory(void)
@@ -535,17 +534,6 @@ bool CGUIControlFactory::GetScroller(const TiXmlNode *control, const std::string
   return false;
 }
 
-bool CGUIControlFactory::GetColor(const TiXmlNode *control, const char *strTag, color_t &value)
-{
-  const TiXmlElement* node = control->FirstChildElement(strTag);
-  if (node && node->FirstChild())
-  {
-    value = g_colorManager.GetColor(node->FirstChild()->Value());
-    return true;
-  }
-  return false;
-}
-
 bool CGUIControlFactory::GetInfoColor(const TiXmlNode *control, const char *strTag, CGUIInfoColor &value,int parentID)
 {
   const TiXmlElement* node = control->FirstChildElement(strTag);
@@ -670,7 +658,7 @@ CGUIControl* CGUIControlFactory::Create(int parentID, const CRect &rect, TiXmlEl
   CGUIControl::ActionMap actions;
 
   int pageControl = 0;
-  CGUIInfoColor colorDiffuse(0xFFFFFFFF);
+  CGUIInfoColor colorDiffuse(m_provider, 0xffffffff);
   int defaultControl = 0;
   bool  defaultAlways = false;
   std::string strTmp;
@@ -692,19 +680,22 @@ CGUIControl* CGUIControlFactory::Create(int parentID, const CRect &rect, TiXmlEl
   float fInterval = 0.1f;
   bool bReverse = true;
   bool bReveal = false;
-  CTextureInfo textureBackground, textureLeft, textureRight, textureMid, textureOverlay;
-  CTextureInfo textureNib, textureNibFocus, textureBar, textureBarFocus;
-  CTextureInfo textureUp, textureDown;
-  CTextureInfo textureUpFocus, textureDownFocus;
-  CTextureInfo textureUpDisabled, textureDownDisabled;
-  CTextureInfo texture, borderTexture;
+  CTextureInfo textureBackground(m_provider), textureLeft(m_provider), textureRight(m_provider);
+  CTextureInfo textureMid(m_provider), textureOverlay(m_provider);
+  CTextureInfo textureNib(m_provider), textureNibFocus(m_provider);
+  CTextureInfo textureBar(m_provider), textureBarFocus(m_provider);
+  CTextureInfo textureLeftFocus(m_provider), textureRightFocus(m_provider);
+  CTextureInfo textureUp(m_provider), textureDown(m_provider);
+  CTextureInfo textureUpFocus(m_provider), textureDownFocus(m_provider);
+  CTextureInfo texture(m_provider), borderTexture(m_provider);
   CGUIInfoLabel textureFile;
-  CTextureInfo textureFocus, textureNoFocus;
-  CTextureInfo textureAltFocus, textureAltNoFocus;
-  CTextureInfo textureRadioOnFocus, textureRadioOnNoFocus;
-  CTextureInfo textureRadioOffFocus, textureRadioOffNoFocus;
-  CTextureInfo textureRadioOnDisabled, textureRadioOffDisabled;
-  CTextureInfo textureProgressIndicator;
+  CTextureInfo textureCheckMark(m_provider), textureCheckMarkNF(m_provider);
+  CTextureInfo textureFocus(m_provider), textureNoFocus(m_provider);
+  CTextureInfo textureAltFocus(m_provider), textureAltNoFocus(m_provider);
+  CTextureInfo textureRadioOnFocus(m_provider), textureRadioOnNoFocus(m_provider);
+  CTextureInfo textureRadioOffFocus(m_provider), textureRadioOffNoFocus(m_provider);
+  CTextureInfo imageNoFocus(m_provider), imageFocus(m_provider);
+  CTextureInfo textureProgressIndicator(m_provider);
   CGUIInfoLabel texturePath;
   CRect borderSize;
 
@@ -741,11 +732,11 @@ CGUIControl* CGUIControlFactory::Create(int parentID, const CRect &rect, TiXmlEl
   bool scrollOut = true;
   int preloadItems = 0;
 
-  CLabelInfo labelInfo;
+  CLabelInfo labelInfo(m_provider);
 
   CGUIInfoColor hitColor(0xFFFFFFFF);
-  CGUIInfoColor textColor3;
-  CGUIInfoColor headlineColor;
+  CGUIInfoColor textColor3(m_provider);
+  CGUIInfoColor headlineColor(m_provider);
 
   float radioWidth = 0;
   float radioHeight = 0;
@@ -845,7 +836,7 @@ CGUIControl* CGUIControlFactory::Create(int parentID, const CRect &rect, TiXmlEl
   if (XMLUtils::GetInt(pControlNode, "angle", angle)) labelInfo.angle = (float)-angle;
   std::string strFont;
   if (XMLUtils::GetString(pControlNode, "font", strFont))
-    labelInfo.font = g_fontManager.GetFont(strFont);
+    labelInfo.font = m_provider->GetFont(strFont);
   uint32_t alignY = 0;
   if (GetAlignmentY(pControlNode, "aligny", alignY))
     labelInfo.align |= alignY;
@@ -1305,7 +1296,7 @@ CGUIControl* CGUIControlFactory::Create(int parentID, const CRect &rect, TiXmlEl
       GetScroller(pControlNode, "scrolltime", scroller);
 
       control = new CGUIListContainer(parentID, id, posX, posY, width, height, orientation, scroller, preloadItems);
-      ((CGUIListContainer *)control)->LoadLayout(pControlNode);
+      ((CGUIListContainer *)control)->LoadLayout(pControlNode, m_provider);
       ((CGUIListContainer *)control)->LoadListProvider(pControlNode, defaultControl, defaultAlways);
       ((CGUIListContainer *)control)->SetType(viewType, viewLabel);
       ((CGUIListContainer *)control)->SetPageControl(pageControl);
@@ -1322,7 +1313,7 @@ CGUIControl* CGUIControlFactory::Create(int parentID, const CRect &rect, TiXmlEl
       GetScroller(pControlNode, "scrolltime", scroller);
 
       control = new CGUIWrappingListContainer(parentID, id, posX, posY, width, height, orientation, scroller, preloadItems, focusPosition);
-      ((CGUIWrappingListContainer *)control)->LoadLayout(pControlNode);
+      ((CGUIWrappingListContainer *)control)->LoadLayout(pControlNode, m_provider);
       ((CGUIWrappingListContainer *)control)->LoadListProvider(pControlNode, defaultControl, defaultAlways);
       ((CGUIWrappingListContainer *)control)->SetType(viewType, viewLabel);
       ((CGUIWrappingListContainer *)control)->SetPageControl(pageControl);
@@ -1337,7 +1328,7 @@ CGUIControl* CGUIControlFactory::Create(int parentID, const CRect &rect, TiXmlEl
     {
       CGUIEPGGridContainer *epgGridContainer = new CGUIEPGGridContainer(parentID, id, posX, posY, width, height, scrollTime, preloadItems, timeBlocks, rulerUnit, textureProgressIndicator);
       control = epgGridContainer;
-      epgGridContainer->LoadLayout(pControlNode);
+      epgGridContainer->LoadLayout(pControlNode, m_provider);
       epgGridContainer->SetRenderOffset(offset);
       epgGridContainer->SetType(viewType, viewLabel);
       epgGridContainer->SetPageControl(pageControl);
@@ -1349,7 +1340,7 @@ CGUIControl* CGUIControlFactory::Create(int parentID, const CRect &rect, TiXmlEl
       GetScroller(pControlNode, "scrolltime", scroller);
 
       control = new CGUIFixedListContainer(parentID, id, posX, posY, width, height, orientation, scroller, preloadItems, focusPosition, iMovementRange);
-      ((CGUIFixedListContainer *)control)->LoadLayout(pControlNode);
+      ((CGUIFixedListContainer *)control)->LoadLayout(pControlNode, m_provider);
       ((CGUIFixedListContainer *)control)->LoadListProvider(pControlNode, defaultControl, defaultAlways);
       ((CGUIFixedListContainer *)control)->SetType(viewType, viewLabel);
       ((CGUIFixedListContainer *)control)->SetPageControl(pageControl);
@@ -1366,7 +1357,7 @@ CGUIControl* CGUIControlFactory::Create(int parentID, const CRect &rect, TiXmlEl
       GetScroller(pControlNode, "scrolltime", scroller);
 
       control = new CGUIPanelContainer(parentID, id, posX, posY, width, height, orientation, scroller, preloadItems);
-      ((CGUIPanelContainer *)control)->LoadLayout(pControlNode);
+      ((CGUIPanelContainer *)control)->LoadLayout(pControlNode, m_provider);
       ((CGUIPanelContainer *)control)->LoadListProvider(pControlNode, defaultControl, defaultAlways);
       ((CGUIPanelContainer *)control)->SetType(viewType, viewLabel);
       ((CGUIPanelContainer *)control)->SetPageControl(pageControl);

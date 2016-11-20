@@ -72,7 +72,7 @@ void CSplash::Show(const std::string& message /* = "" */)
   {
     if (!m_messageLayout)
     {
-      auto messageFont = g_fontManager.LoadTTF("__splash__", "arial.ttf", 0xFFFFFFFF, 0, 20, FONT_STYLE_NORMAL, false, 1.0f, 1.0f, &res);
+      auto messageFont = g_fontManager.LoadTTF("__splash__", "arial.ttf", 0xFFFFFFFF, 0, 20, FONT_STYLE_NORMAL, res, false, 1.0f, 1.0f);
       if (messageFont)
         m_messageLayout = std::unique_ptr<CGUITextLayout>(new CGUITextLayout(messageFont, true, 0));
     }

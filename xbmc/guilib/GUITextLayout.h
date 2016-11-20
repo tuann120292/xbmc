@@ -24,6 +24,7 @@
 #include <string>
 #include <stdint.h>
 #include <vector>
+#include "IResourceProvider.h"
 
 #ifdef __GNUC__
 // under gcc, inline will only take place if optimizations are applied (-O). this will force inline even without optimizations.
@@ -66,7 +67,7 @@ class CGUITextLayout
 {
 public:
   CGUITextLayout(CGUIFont *font, bool wrap, float fHeight=0.0f, CGUIFont *borderFont = NULL);  // this may need changing - we may just use this class to replace CLabelInfo completely
-
+  CGUITextLayout(GUIResourceProviderPtr provider, CGUIFont *font, bool wrap, float fHeight=0.0f, CGUIFont *borderFont = NULL);
   bool UpdateScrollinfo(CScrollInfo &scrollInfo);
 
   // main function to render strings
@@ -155,6 +156,9 @@ private:
   };
   static void AppendToUTF32(const std::string &utf8, character_t colStyle, vecText &utf32);
   static void AppendToUTF32(const std::wstring &utf16, character_t colStyle, vecText &utf32);
-  static void ParseText(const std::wstring &text, uint32_t defaultStyle, color_t defaultColor, vecColors &colors, vecText &parsedText);
+  static void ParseText(const std::wstring &text, uint32_t defaultStyle, color_t defaultColor, GUIResourceProviderPtr colorProvider, vecColors &colors, vecText &parsedText);
+  static color_t TranslateColor(const std::string &color, GUIResourceProviderPtr colorProvider);
+
+  GUIResourceProviderPtr m_resourceProvider;
 };
 

@@ -48,7 +48,6 @@
 #include "GUIInfoManager.h"
 #include "playlists/PlayListFactory.h"
 #include "guilib/GUIFontManager.h"
-#include "guilib/GUIColorManager.h"
 #include "guilib/StereoscopicsManager.h"
 #include "addons/BinaryAddonCache.h"
 #include "addons/LanguageResource.h"
@@ -1699,9 +1698,8 @@ bool CApplication::LoadSkin(const std::string& skinID)
   g_graphicsContext.SetMediaDir(skin->Path());
   g_directoryCache.ClearSubPaths(skin->Path());
 
-  g_colorManager.Load(CSettings::GetInstance().GetString(CSettings::SETTING_LOOKANDFEEL_SKINCOLORS));
-
-  g_fontManager.LoadFonts(CSettings::GetInstance().GetString(CSettings::SETTING_LOOKANDFEEL_FONT));
+  g_SkinInfo->LoadColors(CSettings::GetInstance().GetString("lookandfeel.skincolors"));
+  g_SkinInfo->LoadFonts(CSettings::GetInstance().GetString("lookandfeel.font"));
 
   // load in the skin strings
   std::string langPath = URIUtils::AddFileToFolder(skin->Path(), "language");
@@ -1796,8 +1794,6 @@ void CApplication::UnloadSkin(bool forReload /* = false */)
   g_largeTextureManager.CleanupUnusedImages(true);
 
   g_fontManager.Clear();
-
-  g_colorManager.Clear();
 
   g_infoManager.Clear();
 

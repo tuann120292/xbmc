@@ -33,6 +33,7 @@
 #include <stdint.h>
 #include <functional>
 #include "interfaces/info/InfoBool.h"
+#include "guilib/IResourceProvider.h"
 
 class CGUIListItem;
 
@@ -51,12 +52,11 @@ private:
   bool m_value;
 };
 
-typedef uint32_t color_t;
-
 class CGUIInfoColor
 {
 public:
   CGUIInfoColor(color_t color = 0);
+  CGUIInfoColor(GUIResourceProviderPtr colorProvider, color_t color = 0);
 
   CGUIInfoColor& operator=(const CGUIInfoColor &color);
   CGUIInfoColor& operator=(color_t color);
@@ -66,9 +66,10 @@ public:
   void Parse(const std::string &label, int context);
 
 private:
-  color_t GetColor() const;
+  color_t TranslateColor(const std::string &color) const;
   int     m_info;
   color_t m_color;
+  GUIResourceProviderPtr m_colorProvider;
 };
 
 class CGUIInfoLabel
