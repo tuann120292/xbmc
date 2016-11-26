@@ -987,7 +987,7 @@ bool URIUtils::IsPVRRecording(const std::string& strFile)
 
 bool URIUtils::IsMusicDb(const std::string& strFile)
 {
-  return IsProtocol(strFile, "musicdb");
+  return IsProtocol(strFile, "musicdb") || StringUtils::StartsWithNoCase(strFile, "library://music/");
 }
 
 bool URIUtils::IsNfs(const std::string& strFile)
@@ -1007,7 +1007,7 @@ bool URIUtils::IsNfs(const std::string& strFile)
 
 bool URIUtils::IsVideoDb(const std::string& strFile)
 {
-  return IsProtocol(strFile, "videodb");
+  return IsProtocol(strFile, "videodb") || StringUtils::StartsWithNoCase(strFile, "library://video/");
 }
 
 bool URIUtils::IsBluray(const std::string& strFile)
